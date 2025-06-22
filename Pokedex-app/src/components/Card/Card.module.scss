@@ -1,0 +1,65 @@
+$red_pokedex: #D32F2F;
+$blue: #00B0FF;
+$green: #2E8B57;
+$yellow: #FBC02D;
+$black: #212121;
+$white: #F9F9F9;
+
+.card {
+    background-color: $white;
+    border-radius: 12px;
+    width: 100px;
+    height: fit-content;
+    font-family: "Roboto", sans-serif;
+    overflow: hidden;
+    border: 1px solid $white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    padding-bottom: 5px;
+
+    &__name {
+        color: $black;
+        font-size: 12px;
+        text-transform:capitalize;
+        width: 100%;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+    }
+    span {
+        color: $white;
+        background-color: $red_pokedex;
+        display: block;
+        padding: 5px;
+        
+        // font-family: ;
+        // border-top-left-radius: 12px;
+        // border-top-right-radius: 12px;
+    }
+
+
+    figure {
+        width: fit-content;
+        margin: 0 auto;
+        max-width: 70px;
+
+        img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            max-width: 70px;
+            max-height: 70px;
+            transition: all 0.3s ease-in-out;
+            
+        }
+    }
+
+    &:hover {
+        background-color: $red_pokedex;
+        .card__name {
+            color: $white;
+        }
+        img {
+            transform: scale(1.2);
+        }
+    }
+}
