@@ -2,6 +2,7 @@ import { useState, useEffect  } from "react"
 import styles from "./Searcher.module.scss"
 import ListContainer from "../ListContainer/ListContainer"
 import Loader from "../Loader/Loader";
+import Arrows from "../Arrows/Arrows";
 
 
 
@@ -10,10 +11,12 @@ const Searcher = () => {
     const [ pokemons, setPokemons] = useState([]);
     const [ singlePokemonName, setSinglePokemonName ] = useState("");
     const [ inputValue, setInputValue ] = useState("");
-    const [ isLoading, setIsLoading] = useState(true)
-    const [ types, setTypes ] = useState([]);
-    const [ typeToSearch, setTypeToSearch ] = useState("")
-    const API_BY_TYPE = `https://pokeapi.co/api/v2/type/`
+    const [ isLoading, setIsLoading] = useState(true);
+    const [ limit, setLimit ] = useState(12)
+    const [ offset, setOffset ] = useState(0)
+    // const [ types, setTypes ] = useState([]);
+    // const [ typeToSearch, setTypeToSearch ] = useState("")
+    // const API_BY_TYPE = `https://pokeapi.co/api/v2/type/`
 
     function handleSearch() {
         setSinglePokemonName(inputValue)
@@ -23,63 +26,75 @@ const Searcher = () => {
         if (pokemons.length > 0) {
             setTimeout(() => {
                 setIsLoading(false);
-            }, 10000)
+            }, 5000)
         }
     }, [pokemons]);
 
-    useEffect(() => {
+    function handleNextPage(){
+        console.log("Next");
+        setOffset(() => offset + 12)
+    }
 
-        if(!types) return
-
-        async function getPokemonsTypes() {
-
-            try {
-                let response = await fetch(API_BY_TYPE);
-                if( !response.ok ) {
-                    throw new Error('No se encuentraron Pokemons con el tipo ingresado')
-                }
-
-                let data = await response.json()
-                setTypes(data.results)
-
-            } catch (error) {
-                console.log(error);
-            }
+    function handlePrevPage(){
+        console.log("Prev");
+        if( offset > 0 ) {
+            setOffset(() => offset - limit)
         }
+    }
 
-        getPokemonsTypes()
+    // useEffect(() => {
 
-    },[])
+    //     if(!types) return
 
-    useEffect(() =>{
-        if(!typeToSearch) return
+    //     async function getPokemonsTypes() {
 
-        const getPokemonsByType = async () => {
-            setIsLoading(true)
-            let newPokemons = []
-            try {
-                let response = await fetch(`${API_BY_TYPE}${typeToSearch}`)
+    //         try {
+    //             let response = await fetch(API_BY_TYPE);
+    //             if( !response.ok ) {
+    //                 throw new Error('No se encuentraron Pokemons con el tipo ingresado')
+    //             }
 
-                if(!response.ok){
-                    throw new Error("Error en la peticion de pokemons por categoria")
-                }
+    //             let data = await response.json()
+    //             setTypes(data.results)
 
-                let data = await response.json();
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
 
-                for (const element of data.pokemon) {
-                    newPokemons.push(element.pokemon)
-                }
+    //     getPokemonsTypes()
+
+    // },[])
+
+    // useEffect(() =>{
+    //     if(!typeToSearch) return
+
+    //     const getPokemonsByType = async () => {
+    //         setIsLoading(true)
+    //         let newPokemons = []
+    //         try {
+    //             let response = await fetch(`${API_BY_TYPE}${typeToSearch}`)
+
+    //             if(!response.ok){
+    //                 throw new Error("Error en la peticion de pokemons por categoria")
+    //             }
+
+    //             let data = await response.json();
+
+    //             for (const element of data.pokemon) {
+    //                 newPokemons.push(element.pokemon)
+    //             }
                 
-                setPokemons(newPokemons);
+    //             setPokemons(newPokemons);
 
-            } catch (error) {
-                console.log(error);
+    //         } catch (error) {
+    //             console.log(error);
                 
-            }
-        }
+    //         }
+    //     }
 
-        getPokemonsByType() 
-    },[typeToSearch])
+    //     getPokemonsByType() 
+    // },[typeToSearch])
 
 
     useEffect(() => {
@@ -89,9 +104,6 @@ const Searcher = () => {
          const getPokemonByName = async () => {
             setIsLoading(true)
             const API_URL_BY_NAME = `https://pokeapi.co/api/v2/pokemon/${singlePokemonName}`;
-            
-
-            console.log(API_URL_BY_NAME);
 
 
             try {
@@ -118,9 +130,11 @@ const Searcher = () => {
 
 
     useEffect(() => {
-        const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=12&offset=0";
-
+        
         const fetchData = async () => {
+            const API_URL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
+            console.log(API_URL);
+            
             try {
                 let response = await fetch(API_URL)
 
@@ -138,8 +152,9 @@ const Searcher = () => {
 
 
         fetchData()
-    },[])
+    },[limit, offset])
 
+    
     return(
         <>
             <section className={ styles.searcher }>
@@ -150,7 +165,7 @@ const Searcher = () => {
                     onChange={(e) => setInputValue(e.target.value)}
                 />
 
-                <select 
+                {/* <select 
                     onChange={(e)=>{setTypeToSearch(e.target.value)}}
                 >
                     <option selected disabled>Select a type</option>
@@ -159,22 +174,22 @@ const Searcher = () => {
                             <option key={index} value={type.name}>{type.name}</option>
                         ))
                     }
-                </select>
+                </select> */}
 
                 <button
                     onClick={handleSearch}
                 >Search</button>
-                <div className={styles.type}>
+                {/* <div className={styles.type}>
                 <button
                     // onClick={handleSearchByType}
                     className={styles.typeBtn}
                 >Type</button>
-                </div>
+                </div> */}
             </section>
 
             { isLoading ? <Loader /> : <ListContainer results={pokemons} />}
 
-            {/* <ListContainer results={pokemons} loading={isLoading}></ListContainer> */}
+            <Arrows onPrev={handlePrevPage} onNext={handleNextPage} ></Arrows>
         </>
     )
 }

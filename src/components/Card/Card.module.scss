@@ -18,18 +18,18 @@ $white: #F9F9F9;
     padding-bottom: 5px;
     margin-bottom: 20px;
 
-    &:nth-child(1) {
-        padding-top: 5px;
-        background-color: $red_pokedex;
-        color: $white;
-        span {
-            display: none;
-        }
+    // &:nth-child(1) {
+    //     padding-top: 5px;
+    //     background-color: $red_pokedex;
+    //     color: $white;
+    //     span {
+    //         // display: none;
+    //     }
 
-        .card__name {
-            color: $white;
-        }
-    }
+    //     .card__name {
+    //         color: $white;
+    //     }
+    // }
 
     &__name {
         color: $black;

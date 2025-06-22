@@ -10,6 +10,10 @@ $white: #F9F9F9;
     box-sizing: border-box;
 }
 
+.box {
+    width: 100vw;
+}
+
 .pokedex {
     width: 100vw;
     max-width: 420px;
@@ -17,6 +21,7 @@ $white: #F9F9F9;
     background-color: $red_pokedex;
     border-radius: 12px;
     overflow: hidden;
+    margin: 0 auto;
 
     .top {
         position: relative;

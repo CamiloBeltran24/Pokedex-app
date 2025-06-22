@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import styles from "./Card.module.scss"
+
+
+
 const Card = ({ pokemons }) => {
 
     const [ currentPokemons, setCurrentPokemons ] = useState([]);
