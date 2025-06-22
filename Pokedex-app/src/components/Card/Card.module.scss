@@ -8,7 +8,7 @@ $white: #F9F9F9;
 .card {
     background-color: $white;
     border-radius: 12px;
-    width: 100px;
+    width: 30%;
     height: fit-content;
     font-family: "Roboto", sans-serif;
     overflow: hidden;
@@ -16,6 +16,20 @@ $white: #F9F9F9;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     padding-bottom: 5px;
+    margin-bottom: 20px;
+
+    &:nth-child(1) {
+        padding-top: 5px;
+        background-color: $red_pokedex;
+        color: $white;
+        span {
+            display: none;
+        }
+
+        .card__name {
+            color: $white;
+        }
+    }
 
     &__name {
         color: $black;

@@ -12,11 +12,12 @@ $white: #F9F9F9;
 
 .pokedex {
     width: 100vw;
-    max-width: 380px;
+    max-width: 420px;
     min-height: 400px;
     background-color: $red_pokedex;
     border-radius: 12px;
     overflow: hidden;
+
     .top {
         position: relative;
         display: flex;
@@ -31,38 +32,6 @@ $white: #F9F9F9;
             left: 50%;
             bottom: 5px;
             transform: translateX(-50%);
-        }
-
-        .line {
-            position: absolute;
-            background-color: $black;
-            height: 2px;
-
-            &:nth-child(1), &:nth-child(3), &:nth-child(5) {
-                right: 0;
-                bottom: 70px;
-                width: 100px;
-            }
-            &:nth-child(2), &:nth-child(4) {
-                right: 95px;
-                width: 80px;
-                bottom: 50px;
-                transform: rotate(150deg);  
-            }
-            &:nth-child(3) {
-                right: 170px;
-                bottom: 30px;
-            }
-             &:nth-child(4) {
-                right: 265px;
-                bottom: 10px;
-            }
-             &:nth-child(5) {
-                bottom: -10px;
-                right: unset;
-                left: -15%;
-                border-bottom-right-radius: 10px;
-             }
         }
 
         .circle_blue {

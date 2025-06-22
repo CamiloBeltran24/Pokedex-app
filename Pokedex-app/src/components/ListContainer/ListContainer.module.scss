@@ -1,10 +1,13 @@
+$red_pokedex: #D32F2F;
 .pokemons_container {
-    padding: 20px;
+    padding: 20px 20px;
     width: 100%;
     max-width: 100%;
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-end;
     justify-content: center;
-    gap: 20px;
+    column-gap: 5%;
+    position: relative;
 }
